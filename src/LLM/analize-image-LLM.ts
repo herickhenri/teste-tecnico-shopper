@@ -1,9 +1,9 @@
-export type InputImageAI = {
+export type InputImage = {
   imagePath: string
   mimeType: string
   displayName: string
 }
 
-export interface AnalizeImageAI {
-  upload(inputImageAI: InputImageAI): Promise<string>
+export interface AnalizeImageLLM {
+  upload(inputImage: InputImage): Promise<string>
 }

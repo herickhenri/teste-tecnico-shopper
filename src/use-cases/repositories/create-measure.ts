@@ -1,10 +1,18 @@
-import { InputImageAI } from '../../LLM/analize-image-LLM.js'
+import { AnalizeImageLLM, InputImage } from '../../LLM/analize-image-LLM.js'
 import { MeasuresRepository } from '../../repositories/measures-repository.js'
 import { DoubleReportError } from '../errors/double-report-error.js'
-import { UploadImageUseCases } from '../LLM/upload-image.js'
+import { InvalidDataError } from '../errors/invalid-data-error.js'
+
+const mimeTypesAccepted = [
+  'image/png',
+  'image/jpeg',
+  'image/webp',
+  'image/heic',
+  'image/heif',
+]
 
 interface CreateMeasureRequest {
-  imageInput: InputImageAI
+  imageInput: InputImage
   customer_code: string
   datetime: Date
   type: 'WATER' | 'GAS'
@@ -14,7 +22,7 @@ interface CreateMeasureRequest {
 export class CreateMeasureUseCases {
   constructor(
     private measuresRepository: MeasuresRepository,
-    private uploadImage: UploadImageUseCases,
+    private analizeImageLLM: AnalizeImageLLM,
   ) {}
 
   async execute({
@@ -39,7 +47,17 @@ export class CreateMeasureUseCases {
       throw new DoubleReportError()
     }
 
-    const { value } = await this.uploadImage.execute(imageInput)
+    if (!mimeTypesAccepted.includes(imageInput.mimeType)) {
+      throw new InvalidDataError()
+    }
+
+    const response = await this.analizeImageLLM.upload({
+      displayName: imageInput.displayName,
+      imagePath: imageInput.imagePath,
+      mimeType: imageInput.mimeType,
+    })
+
+    const value = Number(response.match(/\d+/))
 
     const measure = await this.measuresRepository.create({
       customer_code,

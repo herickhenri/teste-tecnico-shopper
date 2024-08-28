@@ -1,21 +1,19 @@
 import { InMemoryMeasuresRepository } from '../../repositories/in-memory/in-memory-measures-repository.js'
 import { CreateMeasureUseCases } from './create-measure.js'
-import { UploadImageUseCases } from '../LLM/upload-image.js'
 import { AnalizeImageMockLLM } from '../../LLM/mock-LLM/upload-image-mock-LLM.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { DoubleReportError } from '../errors/double-report-error.js'
+import { InvalidDataError } from '../errors/invalid-data-error.js'
 
 let measuresRepository: InMemoryMeasuresRepository
-let uploadImage: UploadImageUseCases
-let analizeImageMockLLM: AnalizeImageMockLLM
+let analizeImageLLM: AnalizeImageMockLLM
 let sut: CreateMeasureUseCases
 
 describe('Create Measure Use Case', () => {
   beforeEach(() => {
     measuresRepository = new InMemoryMeasuresRepository()
-    analizeImageMockLLM = new AnalizeImageMockLLM()
-    uploadImage = new UploadImageUseCases(analizeImageMockLLM)
-    sut = new CreateMeasureUseCases(measuresRepository, uploadImage)
+    analizeImageLLM = new AnalizeImageMockLLM()
+    sut = new CreateMeasureUseCases(measuresRepository, analizeImageLLM)
   })
 
   it('shoud be able to create new measure', async () => {
@@ -40,6 +38,23 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       datetime: expect.any(Date),
     })
+  })
+
+  it('shoud be able to create new measure of invalid mimetype image', async () => {
+    expect(
+      async () =>
+        await sut.execute({
+          image_url: 'example-image-url',
+          datetime: new Date(),
+          type: 'WATER',
+          customer_code: 'example-customer-code',
+          imageInput: {
+            displayName: 'image-example',
+            imagePath: 'example-image-path',
+            mimeType: 'invalid/mimetype',
+          },
+        }),
+    ).rejects.toBeInstanceOf(InvalidDataError)
   })
 
   it('shoud not be able to create new measure if there is already a reading for this month', async () => {
