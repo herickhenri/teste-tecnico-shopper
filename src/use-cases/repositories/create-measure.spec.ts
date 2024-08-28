@@ -1,6 +1,6 @@
 import { InMemoryMeasuresRepository } from '../../repositories/in-memory/in-memory-measures-repository.js'
 import { CreateMeasureUseCases } from './create-measure.js'
-import { AnalizeImageMockLLM } from '../../LLM/mock-LLM/upload-image-mock-LLM.js'
+import { AnalizeImageMockLLM } from '../../LLM/mock-LLM/analize-image-mock-LLM.js'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { DoubleReportError } from '../errors/double-report-error.js'
 import { InvalidDataError } from '../errors/invalid-data-error.js'
