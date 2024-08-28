@@ -27,9 +27,9 @@ model Measure {
   datetime        DateTime
   type            String
   has_confirmed   Boolean
-  customer        Customer @relation(fields: [customer_id], references: [id])
-  customer_id     String
-  confirmed_value String?
+  customer        Customer @relation(fields: [customer_code], references: [id])
+  customer_code   String
+  confirmed_value Int?
 
   @@map("measures")
 }

@@ -4,9 +4,9 @@ export type Measure = {
   image_url: string
   value: number
   datetime: Date
-  type: 'WATER' | 'GAS'
+  type: string
   has_confirmed: boolean
-  confimed_value?: number
+  confirmed_value: number | null
 }
 
 export type MeasureInput = {
