@@ -36,12 +36,13 @@ export class InMemoryMeasuresRepository implements MeasuresRepository {
   }: MeasureInput) {
     const measure = {
       id: randomUUID(),
-      has_confirmed: false,
+      customer_code,
       image_url,
+      value,
       datetime,
       type,
-      value,
-      customer_code,
+      has_confirmed: false,
+      confirmed_value: null,
     }
 
     this.#measures.push(measure)

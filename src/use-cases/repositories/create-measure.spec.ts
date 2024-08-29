@@ -23,7 +23,6 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       customer_code: 'example-customer-code',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },
@@ -49,7 +48,6 @@ describe('Create Measure Use Case', () => {
           type: 'WATER',
           customer_code: 'example-customer-code',
           imageInput: {
-            displayName: 'image-example',
             imagePath: 'example-image-path',
             mimeType: 'invalid/mimetype',
           },
@@ -64,7 +62,6 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       customer_code: 'example-customer-code',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },
@@ -78,7 +75,6 @@ describe('Create Measure Use Case', () => {
           type: 'WATER',
           customer_code: 'example-customer-code',
           imageInput: {
-            displayName: 'image-example',
             imagePath: 'example-image-path',
             mimeType: 'image/jpeg',
           },
@@ -93,7 +89,6 @@ describe('Create Measure Use Case', () => {
       type: 'GAS',
       customer_code: 'example-customer-code',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },
@@ -105,7 +100,6 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       customer_code: 'example-customer-code',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },
@@ -122,7 +116,6 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       customer_code: 'customer-one',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },
@@ -134,7 +127,6 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       customer_code: 'customer-two',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },
@@ -151,7 +143,6 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       customer_code: 'example-customer-code',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },
@@ -163,7 +154,6 @@ describe('Create Measure Use Case', () => {
       type: 'WATER',
       customer_code: 'example-customer-code',
       imageInput: {
-        displayName: 'image-example',
         imagePath: 'example-image-path',
         mimeType: 'image/jpeg',
       },

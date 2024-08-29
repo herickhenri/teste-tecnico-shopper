@@ -3,17 +3,16 @@ import { AnalizeImageLLM, InputImage } from '../analize-image-LLM.js'
 import { env } from '../../env/index.js'
 import { genAI } from '../../lib/genAIClient.js'
 
-export class AnalizeImageGeminiAiLLM implements AnalizeImageLLM {
-  async upload({ displayName, imagePath, mimeType }: InputImage) {
+export class AnalizeImageGeminiAILLM implements AnalizeImageLLM {
+  async upload({ imagePath, mimeType }: InputImage) {
     const fileManager = new GoogleAIFileManager(env.GEMINI_API_KEY)
 
     const uploadResponse = await fileManager.uploadFile(imagePath, {
       mimeType,
-      displayName,
     })
 
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-pro',
+      model: 'gemini-1.5-flash',
     })
 
     const result = await model.generateContent([

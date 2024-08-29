@@ -52,7 +52,6 @@ export class CreateMeasureUseCases {
     }
 
     const response = await this.analizeImageLLM.upload({
-      displayName: imageInput.displayName,
       imagePath: imageInput.imagePath,
       mimeType: imageInput.mimeType,
     })
