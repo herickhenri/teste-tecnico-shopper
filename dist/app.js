@@ -4,9 +4,11 @@ import fastifyStatic from '@fastify/static';
 import { appRoutes } from './http/routes.js';
 import { fileURLToPath } from 'url';
 import { ZodError } from 'zod';
+import fs from 'node:fs/promises';
 export const app = fastify();
 const imagesDirURL = new URL('./tmp/uploads', import.meta.url);
 export const imagesDir = fileURLToPath(imagesDirURL);
+await fs.mkdir(imagesDir, { recursive: true });
 app.register(cors, {
     origin: true,
 });

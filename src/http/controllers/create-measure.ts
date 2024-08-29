@@ -33,8 +33,8 @@ export async function createMeasure(
   const imageName = `${randomUUID()}.${fileType.ext}`
   const imagePath = `${imagesDir}/${imageName}`
 
-  await fs.writeFile(imagePath, buffer).catch(() => {
-    throw new Error()
+  await fs.writeFile(imagePath, buffer).catch((err) => {
+    throw err
   })
 
   try {
