@@ -1,7 +1,7 @@
 import { AnalizeImageLLM, InputImage } from '../../LLM/analize-image-LLM.js'
 import { MeasuresRepository } from '../../repositories/measures-repository.js'
 import { DoubleReportError } from '../errors/double-report-error.js'
-import { InvalidDataError } from '../errors/invalid-data-error.js'
+import { InvalidDataError } from '../errors/invalid-mimetype-error.js'
 
 const mimeTypesAccepted = [
   'image/png',

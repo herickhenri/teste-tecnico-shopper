@@ -7,7 +7,7 @@ import fs from 'node:fs/promises'
 import { imagesDir } from '../../app.js'
 import { randomUUID } from 'node:crypto'
 import { fileTypeFromBuffer } from 'file-type'
-import { InvalidDataError } from '../../use-cases/errors/invalid-data-error.js'
+import { InvalidDataError } from '../../use-cases/errors/invalid-mimetype-error.js'
 import { DoubleReportError } from '../../use-cases/errors/double-report-error.js'
 
 export async function createMeasure(
@@ -65,10 +65,15 @@ export async function createMeasure(
     await fs.unlink(imagePath)
 
     if (err instanceof InvalidDataError) {
-      return reply.status(400).send({ error_code: err.message })
+      return reply
+        .status(400)
+        .send({ error_code: err.message, error_description: err.description })
     }
     if (err instanceof DoubleReportError) {
-      return reply.status(409).send({ error_code: err.message })
+      return reply.status(409).send({
+        error_code: err.message,
+        error_description: err.description,
+      })
     }
 
     throw err
