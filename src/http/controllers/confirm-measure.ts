@@ -10,12 +10,12 @@ export async function confirmMeasure(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const measureBodySchema = z.object({
+  const confirmMeasureBodySchema = z.object({
     measure_uuid: z.string(),
     confirmed_value: z.number(),
   })
 
-  const data = measureBodySchema.parse(request.body)
+  const data = confirmMeasureBodySchema.parse(request.body)
 
   try {
     const measuresRepository = new PrismaMeasuresRepository()
