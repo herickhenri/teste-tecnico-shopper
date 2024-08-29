@@ -1,4 +1,7 @@
-import { MeasuresRepository } from '../../repositories/measures-repository.js'
+import {
+  Measure,
+  MeasuresRepository,
+} from '../../repositories/measures-repository.js'
 import { MeasuresNotFoundError } from '../errors/measures-not-found-error.js'
 
 interface GetMeasuresRequest {
@@ -10,16 +13,20 @@ export class GetMeasuresUseCases {
   constructor(private measuresRepository: MeasuresRepository) {}
 
   async execute({ type, customer_code }: GetMeasuresRequest) {
-    const measures =
+    let measures: Measure[] | null =
       await this.measuresRepository.findByCustomerCode(customer_code)
+
+    if (type) {
+      const measuresFiltered =
+        type && measures?.filter((measure) => measure.type === type)
+
+      measures = measuresFiltered || null
+    }
 
     if (!measures || measures.length === 0) {
       throw new MeasuresNotFoundError()
     }
 
-    const measuresFiltered =
-      type && measures.filter((measure) => measure.type === type)
-
-    return { measures: measuresFiltered ?? measures }
+    return { measures }
   }
 }

@@ -38,11 +38,27 @@ describe('Get Measure Use Case', () => {
     ])
   })
 
-  it('shoud not be able to get measurements that do not exist', async () => {
+  it('shoud not be able to get measurements  if the customer does not exist', async () => {
     const customer_code = 'example-customer-code'
 
     expect(
       async () => await sut.execute({ customer_code }),
+    ).rejects.toBeInstanceOf(MeasuresNotFoundError)
+  })
+
+  it('shoud not be able to get measurements if can`t find any measure', async () => {
+    const customer_code = 'example-customer-code'
+
+    await measuresRepository.create({
+      image_url: 'example-image-url',
+      datetime: new Date(),
+      type: 'WATER',
+      customer_code,
+      value: 12345,
+    })
+
+    expect(
+      async () => await sut.execute({ customer_code, type: 'GAS' }),
     ).rejects.toBeInstanceOf(MeasuresNotFoundError)
   })
 
