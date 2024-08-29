@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server",
-    "build": "tsup src --out-dir build",
-    "start": "node build/server.js",
+    "build": "tsc --build tsconfig.json",
+    "start": "node dist/server.js",
     "test": "vitest run --dir src/use-cases",
     "test:ui": "vitest --ui --dir src/use-cases"
   },
