@@ -65,13 +65,12 @@ export async function createMeasure(
     await fs.unlink(imagePath)
 
     if (err instanceof InvalidDataError) {
-      return reply.status(400).send({ message: err.message })
+      return reply.status(400).send({ error_code: err.message })
     }
     if (err instanceof DoubleReportError) {
-      return reply.status(409).send({ message: err.message })
+      return reply.status(409).send({ error_code: err.message })
     }
 
-    console.error(err)
     throw err
   }
 }
