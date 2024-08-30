@@ -1,6 +1,12 @@
-version: '3.8'
-
 services:
+  api-image-reading:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=apiimagereading
   app:
     build: .
     ports:
@@ -11,11 +17,9 @@ services:
       - api-image-reading
     environment:
       - DATABASE_URL=postgresql://docker:docker@api-image-reading:5432/apiimagereading?schema=public
-  api-image-reading:
-    image: bitnami/postgresql
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=apiimagereading
+    deploy:
+      resources:
+        limits:
+          memory: 3096M
+        reservations:
+          memory: 2048M
